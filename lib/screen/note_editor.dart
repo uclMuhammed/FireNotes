@@ -12,9 +12,13 @@ class NoteEditorScreen extends StatefulWidget {
 }
 
 class _NoteEditorScreenState extends State<NoteEditorScreen> {
-  String date = DateTime.now().toString();
   TextEditingController _tileController = TextEditingController();
   TextEditingController _mainController = TextEditingController();
+
+   String daet = DateTime.now().toString();
+   get date async {
+     return daet.replaceRange(16, null, "");
+   }
   @override
   Widget build(BuildContext context) {
     int color_id = Random().nextInt(AppStyle.cardColors.length);
@@ -67,14 +71,12 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
         backgroundColor: AppStyle.accentColor,
         onPressed: (() {
           FirebaseFirestore.instance.collection("Notes").add({
-            "note_tile":_tileController.text,
-            "creation_date":date,
-            "note_content":_mainController.text,
-            "color_id":color_id
-          }).then((value) {
-            print(value.id);
-             Navigator.pop(context);
-             }).catchError((error)=>print("Failed to add new Note due to $error"));
+            "note_tile": _tileController.text,
+            "creation_date": date,
+            "note_content": _mainController.text,
+            "color_id": color_id
+          });
+          Navigator.pop(context);
         }),
         child: Icon(Icons.save),
       ),
