@@ -9,14 +9,21 @@ class AppStyle {
 
 
   static List<Color> cardColors = [
-    Colors.white,
-    Colors.red.shade100,
-    Colors.pink.shade100,
-    Colors.orange.shade100,
-    Colors.yellow.shade100,
-    Colors.green.shade100,
-    Colors.blue.shade100,
-    Colors.blueGrey.shade100,
+    Colors.red.shade200,
+    Colors.pink.shade200,
+    Colors.orange.shade200,
+    Colors.yellow.shade200,
+    Colors.green.shade200,
+    Colors.blue.shade200,
+  ];
+
+  static List<Color> contentColors = [
+    Colors.red.shade300,
+    Colors.pink.shade300,
+    Colors.orange.shade300,
+    Colors.yellow.shade300,
+    Colors.green.shade300,
+    Colors.blue.shade300,
   ];
 
 

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_notes/style/app_style.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NoteReaderScreen extends StatefulWidget {
   const NoteReaderScreen(this.doc, {Key? key}) : super(key: key);
@@ -22,17 +23,19 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
       appBar: AppBar(
         backgroundColor: AppStyle.cardColors[color_id],
         elevation: 0,
+        centerTitle: true,
         iconTheme: IconThemeData(color: Colors.black),
+        title: Text(
+          widget.doc["note_tile"],
+          style: GoogleFonts.roboto(
+              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              widget.doc["note_tile"],
-              style: AppStyle.mainTile,
-            ),
             SizedBox(
               height: 4,
             ),
@@ -46,7 +49,7 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
             Text(
               widget.doc["note_content"],
               style: AppStyle.mainContetnt,
-              overflow: TextOverflow.ellipsis,
+              overflow: TextOverflow.clip,
             ),
           ],
         ),
