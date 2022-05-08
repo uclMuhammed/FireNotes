@@ -6,8 +6,8 @@ Widget noteCard(Function()? onTap, QueryDocumentSnapshot doc) {
   return InkWell(
     onTap: onTap,
     child: Container(
-      padding: EdgeInsets.all(8.0),
-      margin: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(16.0),
+      margin: EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: AppStyle.cardColors[doc["color_id"]],
         borderRadius: BorderRadius.circular(8),
@@ -16,7 +16,7 @@ Widget noteCard(Function()? onTap, QueryDocumentSnapshot doc) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(doc["note_tile"],style: AppStyle.mainTile,),
-          SizedBox(height: 4,),
+          SizedBox(height: 8,),
           Text(doc["creation_date"],style: AppStyle.dateTile,),
           SizedBox(height: 8,),
           Text(doc["note_content"],style: AppStyle.mainContetnt,overflow: TextOverflow.ellipsis,),

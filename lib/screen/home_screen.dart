@@ -29,11 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
-            "Your Recent Notes",
-            style: GoogleFonts.roboto(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
-          ),
           SizedBox(height: 20),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
