@@ -6,14 +6,14 @@ Widget noteCard(Function()? onTap, QueryDocumentSnapshot doc) {
   return InkWell(
     onTap: onTap,
     child: Container(
-      padding: EdgeInsets.all(16.0),
-      margin: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
+      margin: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: AppStyle.cardColors[doc["color_id"]],
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(10),
         ),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(color: Colors.black12, blurRadius: 2, spreadRadius: 1)
         ],
       ),
@@ -28,14 +28,14 @@ Widget noteCard(Function()? onTap, QueryDocumentSnapshot doc) {
             doc["creation_date"],
             style: AppStyle.dateTile,
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Text(
             doc["note_tile"],
             style: AppStyle.mainTile,
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Text(

@@ -3,7 +3,6 @@ import 'package:fire_notes/screen/note_editor.dart';
 import 'package:fire_notes/screen/note_reader.dart';
 import 'package:fire_notes/style/app_style.dart';
 import 'package:fire_notes/widgets/note_card.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,32 +21,33 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppStyle.mainColor,
-        title: Text("Fire Notes"),
+        title: const Text("Fire Notes"),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.delete_forever))
+          IconButton(onPressed: () {}, icon: const Icon(Icons.delete_forever))
         ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream:
                   FirebaseFirestore.instance.collection("Notes").snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshots) {
                 if (snapshots.connectionState == ConnectionState.waiting) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
                 if (snapshots.hasData) {
                   var myList = snapshots.data!.docs.toList().reversed;
                   return GridView(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2),
                     children: myList
                         .map((note) => noteCard(() {
                               Navigator.push(
@@ -77,8 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
               MaterialPageRoute(
                   builder: (context) => const NoteEditorScreen()));
         },
-        label: Text("Add Note"),
-        icon: Icon(Icons.add),
+        label: const Text("Add Note"),
+        icon: const Icon(Icons.add),
       ),
     );
   }

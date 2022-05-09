@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_notes/style/app_style.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,28 +13,26 @@ class NoteReaderScreen extends StatefulWidget {
 class _NoteReaderScreenState extends State<NoteReaderScreen> {
   @override
   Widget build(BuildContext context) {
-    int color_id = widget.doc['color_id'];
-    double height = MediaQuery.of(context).size.height;
+    int colorId = widget.doc['color_id'];
     double width = MediaQuery.of(context).size.width;
-    double size = double.infinity;
     return Scaffold(
-      backgroundColor: AppStyle.cardColors[color_id],
+      backgroundColor: AppStyle.cardColors[colorId],
       appBar: AppBar(
-        backgroundColor: AppStyle.cardColors[color_id],
+        backgroundColor: AppStyle.cardColors[colorId],
         elevation: 0,
         centerTitle: true,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         title: Text(
           widget.doc["note_tile"],
           style: GoogleFonts.roboto(
               fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
         ),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.edit))],
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.edit))],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 4,
           ),
           Center(
@@ -43,11 +40,11 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
               height: 20,
               width: width / 3,
               decoration: BoxDecoration(
-                color: AppStyle.contentColors[color_id],
-                borderRadius: BorderRadius.all(
+                color: AppStyle.contentColors[colorId],
+                borderRadius: const BorderRadius.all(
                   Radius.circular(10),
                 ),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                       color: Colors.black12, blurRadius: 2, spreadRadius: 1)
                 ],
@@ -60,7 +57,7 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Center(
@@ -68,11 +65,11 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
               child: Container(
                 width: width / 1.04,
                 decoration: BoxDecoration(
-                  color: AppStyle.contentColors[color_id],
-                  borderRadius: BorderRadius.all(
+                  color: AppStyle.contentColors[colorId],
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(20),
                   ),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                         color: Colors.black12, blurRadius: 10, spreadRadius: 5)
                   ],
@@ -103,7 +100,7 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
               .delete();
           Navigator.pop(context);
         }),
-        child: Icon(Icons.delete),
+        child: const Icon(Icons.delete),
       ),
     );
   }
