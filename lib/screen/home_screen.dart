@@ -41,16 +41,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
                 if (snapshots.hasData) {
+                  var myList = snapshots.data!.docs.toList().reversed;
                   return GridView(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2),
-                    children: snapshots.data!.docs
+                    children: myList
                         .map((note) => noteCard(() {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          NoteReaderScreen(note)));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => NoteReaderScreen(note),
+                                ),
+                              );
                             }, note))
                         .toList(),
                   );
@@ -67,8 +69,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => NoteEditorScreen()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const NoteEditorScreen()));
         },
         label: Text("Add Note"),
         icon: Icon(Icons.add),

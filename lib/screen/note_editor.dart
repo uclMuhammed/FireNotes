@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fire_notes/constructer/constructer.dart';
 import 'package:fire_notes/style/app_style.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class NoteEditorScreen extends StatefulWidget {
   const NoteEditorScreen({Key? key}) : super(key: key);
@@ -15,10 +17,10 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _tileController = TextEditingController();
-  TextEditingController _mainController = TextEditingController();
+  TextEditingController _contentController = TextEditingController();
 
   String daet = DateTime.now().toString();
-  get date => daet.replaceRange(16, null, "");
+  get dates => daet.replaceRange(16, null, "");
 
   validator(String value) {
     if (value == null || value.isEmpty) {
@@ -30,6 +32,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
   @override
   Widget build(BuildContext context) {
     int color_id = Random().nextInt(AppStyle.cardColors.length);
+
     return Scaffold(
       backgroundColor: AppStyle.cardColors[color_id],
       appBar: AppBar(
@@ -63,14 +66,14 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
                 height: 24,
               ),
               Text(
-                date,
+                dates,
                 style: AppStyle.dateTile,
               ),
               SizedBox(
                 height: 24,
               ),
               TextFormField(
-                controller: _mainController,
+                controller: _contentController,
                 keyboardType: TextInputType.multiline,
                 maxLength: 5000,
                 decoration:
@@ -97,18 +100,25 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
                 content: Text("Progressing Data"),
               ),
             );
-            FirebaseFirestore.instance.collection("Notes").add({
-              "note_tile": _tileController.text,
-              "creation_date": date,
-              "note_content": _mainController.text,
-              "color_id": color_id
-            });
+            final note = Note(
+                note_tile: _tileController.text,
+                note_content: _contentController.text,
+                color_id: color_id,
+                creation_date: dates.toString());
+            createNote(note);
             Navigator.pop(context);
           }
         }),
         child: Icon(Icons.save),
       ),
     );
+  }
+
+  Future createNote(Note note) async {
+    final docNote =
+        FirebaseFirestore.instance.collection("Notes").doc(daet.toString());
+    final json = note.toJson();
+    await docNote.set(json);
   }
 
   InputDecoration textFormFieldDecoration(

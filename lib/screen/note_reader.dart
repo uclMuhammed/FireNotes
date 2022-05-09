@@ -16,8 +16,9 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
   Widget build(BuildContext context) {
     String d = widget.doc.reference.toString();
     String dos = d.replaceRange(0, 46, "");
-    String doc = dos.replaceRange(20, null, "");
+    String doc = dos.replaceRange(27, null, "");
     int color_id = widget.doc['color_id'];
+
     return Scaffold(
       backgroundColor: AppStyle.cardColors[color_id],
       appBar: AppBar(
@@ -32,16 +33,18 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 4,
             ),
-            Text(
-              widget.doc["creation_date"],
-              style: AppStyle.dateTile,
+            Center(
+              child: Text(
+                widget.doc["creation_date"],
+                style: AppStyle.dateTile,
+              ),
             ),
             SizedBox(
               height: 20,
