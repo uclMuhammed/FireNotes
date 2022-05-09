@@ -10,16 +10,39 @@ Widget noteCard(Function()? onTap, QueryDocumentSnapshot doc) {
       margin: EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: AppStyle.cardColors[doc["color_id"]],
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 2, spreadRadius: 1)
+        ],
       ),
+      // decoration: BoxDecoration(
+      //   color: AppStyle.cardColors[doc["color_id"]],
+      //   borderRadius: BorderRadius.circular(8),
+      // ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(doc["creation_date"],style: AppStyle.dateTile,),
-          SizedBox(height: 8,),
-          Text(doc["note_tile"],style: AppStyle.mainTile,),
-          SizedBox(height: 8,),
-          Text(doc["note_content"],style: AppStyle.mainContetnt,overflow: TextOverflow.ellipsis,),
+          Text(
+            doc["creation_date"],
+            style: AppStyle.dateTile,
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Text(
+            doc["note_tile"],
+            style: AppStyle.mainTile,
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Text(
+            doc["note_content"],
+            style: AppStyle.mainContetnt,
+            overflow: TextOverflow.ellipsis,
+          ),
         ],
       ),
     ),

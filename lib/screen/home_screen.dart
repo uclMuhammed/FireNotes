@@ -24,6 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: AppStyle.mainColor,
         title: Text("Fire Notes"),
         centerTitle: true,
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.delete_forever))
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

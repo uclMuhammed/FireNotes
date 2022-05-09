@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppStyle {
-
   static Color bgColor = const Color(0xffe2e2ff);
-  static Color mainColor = const Color(0xff000633);
+  static Color mainColor = Color(0xffe2e2ff);
   static Color accentColor = const Color(0xff0065ff);
-
 
   static List<Color> cardColors = [
     Colors.red.shade200,
@@ -26,8 +24,10 @@ class AppStyle {
     Colors.blue.shade300,
   ];
 
-
-  static TextStyle  mainTile = GoogleFonts.roboto(fontSize: 18,fontWeight: FontWeight.bold);
-  static TextStyle  mainContetnt = GoogleFonts.roboto(fontSize: 16,fontWeight: FontWeight.normal);
-  static TextStyle  dateTile = GoogleFonts.roboto(fontSize: 13,fontWeight: FontWeight.w500);
+  static TextStyle mainTile =
+      GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold);
+  static TextStyle mainContetnt =
+      GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.normal);
+  static TextStyle dateTile =
+      GoogleFonts.roboto(fontSize: 13, fontWeight: FontWeight.w500);
 }

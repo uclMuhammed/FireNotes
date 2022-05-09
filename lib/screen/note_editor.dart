@@ -53,11 +53,12 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
             children: [
               TextFormField(
                 controller: _tileController,
+                maxLength: 100,
                 decoration: textFormFieldDecoration(color_id, "", "Note Title"),
                 style: AppStyle.mainTile,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter some note content!";
+                    return "Please enter some note tile!";
                   }
                   return null;
                 },
@@ -115,8 +116,8 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
   }
 
   Future createNote(Note note) async {
-    final docNote =
-        FirebaseFirestore.instance.collection("Notes").doc(daet.toString());
+    final docNote = FirebaseFirestore.instance.collection("Notes").doc(daet);
+    note.id = daet;
     final json = note.toJson();
     await docNote.set(json);
   }
