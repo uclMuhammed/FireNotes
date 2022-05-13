@@ -104,10 +104,10 @@ class _ReaderEditorScreenState extends State<ReaderEditorScreen> {
               "note_content": contentController.text,
               "note_tile": tileController.text,
               "ischecking": false,
-            }).catchError((onError) => print(onError));
+            });
           }
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()));
         },
         child: const Icon(Icons.save),
       ),
