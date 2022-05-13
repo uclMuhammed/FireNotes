@@ -44,50 +44,53 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
           style: TextStyle(color: Colors.black),
         ),
       ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _tileController,
-                maxLength: 100,
-                decoration: textFormFieldDecoration(colorId, "", "Note Title"),
-                style: AppStyle.mainTile,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter some note tile!";
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              Text(
-                dates,
-                style: AppStyle.dateTile,
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              TextFormField(
-                controller: _contentController,
-                keyboardType: TextInputType.multiline,
-                maxLength: 5000,
-                decoration:
-                    textFormFieldDecoration(colorId, "", "Note Content"),
-                style: AppStyle.mainContetnt,
-                maxLines: null,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter some note content!";
-                  }
-                  return null;
-                },
-              ),
-            ],
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: _tileController,
+                  maxLength: 100,
+                  decoration:
+                      textFormFieldDecoration(colorId, "", "Note Title"),
+                  style: AppStyle.mainTile,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter some note tile!";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                Text(
+                  dates,
+                  style: AppStyle.dateTile,
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                TextFormField(
+                  controller: _contentController,
+                  keyboardType: TextInputType.multiline,
+                  maxLength: 5000,
+                  decoration:
+                      textFormFieldDecoration(colorId, "", "Note Content"),
+                  style: AppStyle.mainContetnt,
+                  maxLines: null,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter some note content!";
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -101,6 +104,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
               ),
             );
             final note = Note(
+                ischecking: false,
                 note_tile: _tileController.text,
                 note_content: _contentController.text,
                 color_id: colorId,

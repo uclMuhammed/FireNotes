@@ -1,6 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
 
-class Note {
+import 'package:flutter/cupertino.dart';
+
+class Note extends ChangeNotifier {
+  bool? ischecking;
   String? id;
   String? note_tile;
   String? creation_date;
@@ -8,7 +11,8 @@ class Note {
   int? color_id;
 
   Note(
-      {this.color_id,
+      {this.ischecking = false,
+      this.color_id,
       this.creation_date,
       this.note_content,
       this.note_tile,
@@ -20,5 +24,12 @@ class Note {
         "creation_date": creation_date,
         "note_content": note_content,
         "color_id": color_id,
+        "ischecking": ischecking,
       };
+
+  /*
+  void isChecking(bool newBool) {
+    ischecking = newBool;
+    notifyListeners();
+  }*/
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fire_notes/screen/reader_editor.dart';
 import 'package:fire_notes/style/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,70 +28,89 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
           style: GoogleFonts.roboto(
               fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
         ),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.edit))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ReaderEditorScreen(widget.doc)));
+              },
+              icon: const Icon(
+                Icons.edit,
+                color: Colors.black,
+              )),
+        ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 4,
-          ),
-          Center(
-            child: Container(
-              height: 20,
-              width: width / 3,
-              decoration: BoxDecoration(
-                color: AppStyle.contentColors[colorId],
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.black12, blurRadius: 2, spreadRadius: 1)
-                ],
-              ),
-              child: Center(
-                child: Text(
-                  widget.doc["creation_date"],
-                  style: AppStyle.dateTile,
-                ),
-              ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 4,
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Center(
-            child: SizedBox(
+            Center(
               child: Container(
-                width: width / 1.04,
+                height: 20,
+                width: width / 3,
                 decoration: BoxDecoration(
                   color: AppStyle.contentColors[colorId],
                   borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
+                    Radius.circular(10),
                   ),
                   boxShadow: const [
                     BoxShadow(
-                        color: Colors.black12, blurRadius: 10, spreadRadius: 5)
+                        color: Colors.black12, blurRadius: 2, spreadRadius: 1)
                   ],
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.doc["note_content"],
-                        style: AppStyle.mainContetnt,
-                        overflow: TextOverflow.clip,
-                      ),
-                    ],
+                child: Center(
+                  child: Text(
+                    widget.doc["creation_date"],
+                    style: AppStyle.dateTile,
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: SizedBox(
+                child: Container(
+                  width: width / 1.04,
+                  decoration: BoxDecoration(
+                    color: AppStyle.contentColors[colorId],
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 10,
+                          spreadRadius: 5)
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.doc["note_content"],
+                          style: AppStyle.mainContetnt,
+                          overflow: TextOverflow.clip,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            )
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
