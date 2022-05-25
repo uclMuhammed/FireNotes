@@ -121,8 +121,10 @@ class _ReaderEditorScreenState extends State<ReaderEditorScreen> {
               "note_tile": tileController.text,
               "ischecking": false,
             });
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const TabBarHomeScreen()));
           }
         },
         child: const Icon(Icons.save),

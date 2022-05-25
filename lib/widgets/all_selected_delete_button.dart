@@ -8,26 +8,53 @@ class AllSelectedDeleteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-        onPressed: () async {
-          var collection = FirebaseFirestore.instance.collection('Notes');
-          var querySnapshot = await collection.get();
-          var idList = [];
-          for (var queryDocumentSnapshot in querySnapshot.docs) {
-            Map<String, dynamic> data = queryDocumentSnapshot.data();
-            bool ischecking = data["ischecking"];
-            var id = data["id"];
-            if (ischecking == true) {
-              idList.add(id);
-            }
+    return InkWell(
+      onTap: () async {
+        var collection = FirebaseFirestore.instance.collection('Notes');
+        var querySnapshot = await collection.get();
+        var idList = [];
+        for (var queryDocumentSnapshot in querySnapshot.docs) {
+          Map<String, dynamic> data = queryDocumentSnapshot.data();
+          bool ischecking = data["ischecking"];
+          var id = data["id"];
+          if (ischecking == true) {
+            idList.add(id);
           }
-          for (var i = 0; i < idList.length; i++) {
+        }
+        for (var i = 0; i < idList.length; i++) {
+          FirebaseFirestore.instance
+              .collection("Notes")
+              .doc(idList[i])
+              .delete();
+        }
+      },
+      onLongPress: () async {
+        var collection = FirebaseFirestore.instance.collection('Notes');
+        var querySnapshot = await collection.get();
+        var noteList = [];
+        for (var queryDocumentSnapshot in querySnapshot.docs) {
+          Map<String, dynamic> data = queryDocumentSnapshot.data();
+          noteList.add(data);
+        }
+        for (var i = 0; i < noteList.length; i++) {
+          if (noteList[i]["ischecking"] == false) {
             FirebaseFirestore.instance
                 .collection("Notes")
-                .doc(idList[i])
-                .delete();
+                .doc(noteList[i]["id"])
+                .update({"ischecking": true});
           }
-        },
-        icon: const Icon(Icons.delete_forever));
+          if (noteList[i]["ischecking"] == true) {
+            FirebaseFirestore.instance
+                .collection("Notes")
+                .doc(noteList[i]["id"])
+                .update({"ischecking": false});
+          }
+        }
+      },
+      child: const Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Icon((Icons.delete_forever)),
+      ),
+    );
   }
 }

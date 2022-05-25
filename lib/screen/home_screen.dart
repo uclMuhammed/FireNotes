@@ -1,160 +1,75 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fire_notes/screen/alarm_notes.dart';
+import 'package:fire_notes/screen/fav_notes_list.dart';
 
-import 'package:fire_notes/screen/note_editor.dart';
-import 'package:fire_notes/screen/note_reader.dart';
+import 'package:fire_notes/screen/note_list_screen.dart';
 
 import 'package:fire_notes/style/app_style.dart';
 
-import 'package:fire_notes/widgets/note_card.dart';
-
 import 'package:flutter/material.dart';
-import 'package:like_button/like_button.dart';
 
 import '../widgets/all_selected_delete_button.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class TabBarHomeScreen extends StatefulWidget {
+  const TabBarHomeScreen({Key? key}) : super(key: key);
+
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<TabBarHomeScreen> createState() => _TabBarHomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  TextEditingController searchController = TextEditingController();
-
+class _TabBarHomeScreenState extends State<TabBarHomeScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController controller;
   bool showFavorite = false;
   bool isRefresh = false;
+  @override
+  void initState() {
+    super.initState();
+    controller = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppStyle.mainColor,
-      appBar: AppBar(
-        elevation: 0,
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
         backgroundColor: AppStyle.mainColor,
-        title: const Text("Fire Notes"),
-        centerTitle: true,
-        actions: [
-          const AllSelectedDeleteButton(),
-          LikeButton(
-            size: 25,
-            onTap: (value) async {
-              showFavorite = !showFavorite;
-              isRefresh = !isRefresh;
-              return showFavorite;
-            },
-          )
-        ],
-      ),
-      body: RefreshIndicator(
-        onRefresh: () {
-          return Future.delayed(const Duration(seconds: 1));
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                stream:
-                    FirebaseFirestore.instance.collection("Notes").snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshots) {
-                  if (snapshots.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (snapshots.hasData) {
-                    var myList = snapshots.data!.docs.toList().reversed;
-                    if (showFavorite == true) {
-                      var favList = [];
-                      for (var fav in snapshots.data!.docs.toList()) {
-                        if (fav["favorite"] == true) {
-                          favList.add(fav);
-                        }
-                      }
-                      return GridView.count(
-                        crossAxisCount: 2,
-                        children: favList
-                            .map(
-                              (note) => noteCard(() {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        NoteReaderScreen(note),
-                                  ),
-                                );
-                              }, note),
-                            )
-                            .toList(),
-                      );
-                    } else {
-                      return GridView.count(
-                        crossAxisCount: 2,
-                        children: myList
-                            .map(
-                              (note) => noteCard(() {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        NoteReaderScreen(note),
-                                  ),
-                                );
-                              }, note),
-                            )
-                            .toList(),
-                      );
-                    }
-                  }
-
-                  return const Center(
-                    child: Text("There's no Notes"),
-                  );
-                },
-              ),
-            ),
+        appBar: AppBar(
+          backgroundColor: AppStyle.mainColor,
+          title: const Text("Fire Notes"),
+          centerTitle: true,
+          actions: [
+            AllSelectedDeleteButton(),
           ],
+          bottom: TabBar(
+            controller: controller,
+            tabs: const [
+              Tab(
+                text: "All Notes",
+                icon: Icon(Icons.notes_rounded),
+              ),
+              Tab(
+                text: "Fav Notes",
+                icon: Icon(Icons.favorite),
+              ),
+              Tab(
+                text: "Alarm Notes",
+                icon: Icon(Icons.alarm),
+              ),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const NoteEditorScreen()));
-        },
-        label: const Text("Add Note"),
-        icon: const Icon(Icons.add),
+        body: TabBarView(controller: controller, children: const [
+          NoteListScreen(),
+          FavNotesList(),
+          AlarmNotes(),
+        ]),
       ),
     );
   }
-
-  GridView homeScreenCard(
-      Iterable<QueryDocumentSnapshot<Object?>> myList, BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 2,
-      children: myList
-          .map(
-            (note) => noteCard(() {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => NoteReaderScreen(note),
-                ),
-              );
-            }, note),
-          )
-          .toList(),
-    );
-  }
-}
-
-OutlineInputBorder textFormFieldBorderStyle() {
-  return const OutlineInputBorder(
-    borderRadius: BorderRadius.all(
-      Radius.circular(20),
-    ),
-    borderSide: BorderSide(color: Colors.white),
-  );
 }

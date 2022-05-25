@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => Note()),
       ],
       child: const MaterialApp(
-        home: HomeScreen(),
+        home: TabBarHomeScreen(),
         debugShowCheckedModeBanner: false,
       ),
     );
