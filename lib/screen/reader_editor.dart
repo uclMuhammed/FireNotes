@@ -36,7 +36,7 @@ class _ReaderEditorScreenState extends State<ReaderEditorScreen> {
         elevation: 0,
         actions: [
           LikeButton(
-            size: 30,
+            size: 25,
             onTap: (value) async {
               isFav = !isFav;
               return isFav;
@@ -107,6 +107,9 @@ class _ReaderEditorScreenState extends State<ReaderEditorScreen> {
                 content: Text("Progressing Data"),
               ),
             );
+          }
+          if (contentController.text.isNotEmpty &&
+              tileController.text.isNotEmpty) {
             FirebaseFirestore.instance
                 .collection("Notes")
                 .doc(widget.doc["id"])
@@ -118,9 +121,9 @@ class _ReaderEditorScreenState extends State<ReaderEditorScreen> {
               "note_tile": tileController.text,
               "ischecking": false,
             });
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()));
           }
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()));
         },
         child: const Icon(Icons.save),
       ),

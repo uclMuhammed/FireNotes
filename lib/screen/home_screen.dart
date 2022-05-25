@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           const AllSelectedDeleteButton(),
           LikeButton(
-            size: 30,
+            size: 25,
             onTap: (value) async {
               showFavorite = !showFavorite;
               isRefresh = !isRefresh;

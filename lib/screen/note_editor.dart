@@ -41,7 +41,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
         elevation: 0,
         actions: [
           LikeButton(
-            size: 30,
+            size: 25,
             onTap: (value) async {
               favorite = !favorite;
 
