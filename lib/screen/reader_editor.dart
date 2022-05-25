@@ -39,7 +39,6 @@ class _ReaderEditorScreenState extends State<ReaderEditorScreen> {
             size: 30,
             onTap: (value) async {
               isFav = !isFav;
-
               return isFav;
             },
           )

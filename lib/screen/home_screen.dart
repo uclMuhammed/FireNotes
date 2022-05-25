@@ -4,13 +4,12 @@ import 'package:fire_notes/screen/note_editor.dart';
 import 'package:fire_notes/screen/note_reader.dart';
 
 import 'package:fire_notes/style/app_style.dart';
-import 'package:fire_notes/widgets/fav_list.dart';
+
 import 'package:fire_notes/widgets/note_card.dart';
 
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 
-import '../widgets/all_list.dart';
 import '../widgets/all_selected_delete_button.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -40,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
             size: 30,
             onTap: (value) async {
               showFavorite = !showFavorite;
-
+              isRefresh = !isRefresh;
               return showFavorite;
             },
           )
@@ -55,9 +54,65 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(
-              child: showFavorite
-                  ? favCardList(isRefresh)
-                  : allCardList(isRefresh),
+              child: StreamBuilder<QuerySnapshot>(
+                stream:
+                    FirebaseFirestore.instance.collection("Notes").snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshots) {
+                  if (snapshots.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshots.hasData) {
+                    var myList = snapshots.data!.docs.toList().reversed;
+                    if (showFavorite == true) {
+                      var favList = [];
+                      for (var fav in snapshots.data!.docs.toList()) {
+                        if (fav["favorite"] == true) {
+                          favList.add(fav);
+                        }
+                      }
+                      return GridView.count(
+                        crossAxisCount: 2,
+                        children: favList
+                            .map(
+                              (note) => noteCard(() {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        NoteReaderScreen(note),
+                                  ),
+                                );
+                              }, note),
+                            )
+                            .toList(),
+                      );
+                    } else {
+                      return GridView.count(
+                        crossAxisCount: 2,
+                        children: myList
+                            .map(
+                              (note) => noteCard(() {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        NoteReaderScreen(note),
+                                  ),
+                                );
+                              }, note),
+                            )
+                            .toList(),
+                      );
+                    }
+                  }
+
+                  return const Center(
+                    child: Text("There's no Notes"),
+                  );
+                },
+              ),
             ),
           ],
         ),
