@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_notes/constructer/constructer.dart';
 import 'package:fire_notes/style/app_style.dart';
 import 'package:flutter/material.dart';
+import 'package:like_button/like_button.dart';
 
 class NoteEditorScreen extends StatefulWidget {
   const NoteEditorScreen({Key? key}) : super(key: key);
@@ -18,6 +19,8 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
   final TextEditingController _tileController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
 
+  bool favorite = false;
+
   String daet = DateTime.now().toString();
   get dates => daet.replaceRange(16, null, "");
 
@@ -28,15 +31,24 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
     return null;
   }
 
+  int colorId = Random().nextInt(AppStyle.cardColors.length);
   @override
   Widget build(BuildContext context) {
-    int colorId = Random().nextInt(AppStyle.cardColors.length);
-
     return Scaffold(
       backgroundColor: AppStyle.cardColors[colorId],
       appBar: AppBar(
         backgroundColor: AppStyle.cardColors[colorId],
         elevation: 0,
+        actions: [
+          LikeButton(
+            size: 30,
+            onTap: (value) async {
+              favorite = !favorite;
+
+              return favorite;
+            },
+          ),
+        ],
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.black),
         title: const Text(
@@ -52,6 +64,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
             child: Column(
               children: [
                 TextFormField(
+                  keyboardType: TextInputType.name,
                   controller: _tileController,
                   maxLength: 100,
                   decoration:
@@ -108,8 +121,10 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
                 note_tile: _tileController.text,
                 note_content: _contentController.text,
                 color_id: colorId,
-                creation_date: dates.toString());
+                creation_date: dates.toString(),
+                favorite: favorite);
             createNote(note);
+
             Navigator.pop(context);
           }
         }),
@@ -140,11 +155,11 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
   }
 
   OutlineInputBorder textFormFieldBorderStyle(int colorId) {
-    return OutlineInputBorder(
-      borderRadius: const BorderRadius.all(
+    return const OutlineInputBorder(
+      borderRadius: BorderRadius.all(
         Radius.circular(20),
       ),
-      borderSide: BorderSide(color: AppStyle.contentColors[colorId]),
+      // borderSide: BorderSide(color: AppStyle.contentColors[colorId]),
     );
   }
 }

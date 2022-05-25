@@ -9,6 +9,7 @@ class Note extends ChangeNotifier {
   String? creation_date;
   String? note_content;
   int? color_id;
+  bool? favorite;
 
   Note(
       {this.ischecking = false,
@@ -16,7 +17,8 @@ class Note extends ChangeNotifier {
       this.creation_date,
       this.note_content,
       this.note_tile,
-      this.id});
+      this.id,
+      this.favorite});
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -25,11 +27,6 @@ class Note extends ChangeNotifier {
         "note_content": note_content,
         "color_id": color_id,
         "ischecking": ischecking,
+        "favorite": favorite,
       };
-
-  /*
-  void isChecking(bool newBool) {
-    ischecking = newBool;
-    notifyListeners();
-  }*/
 }

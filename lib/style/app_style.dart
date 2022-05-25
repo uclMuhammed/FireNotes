@@ -7,18 +7,6 @@ class AppStyle {
   static Color accentColor = const Color(0xff0065ff);
 
   static List<Color> cardColors = [
-    Colors.red.shade100,
-    Colors.pink.shade100,
-    Colors.orange.shade100,
-    Colors.yellow.shade100,
-    Colors.green.shade100,
-    Colors.blue.shade100,
-    Colors.grey.shade100,
-    Colors.amber.shade100,
-    Colors.cyan.shade100
-  ];
-
-  static List<Color> contentColors = [
     Colors.red.shade200,
     Colors.pink.shade200,
     Colors.orange.shade200,
@@ -28,6 +16,18 @@ class AppStyle {
     Colors.grey.shade200,
     Colors.amber.shade200,
     Colors.cyan.shade200
+  ];
+
+  static List<Color> contentColors = [
+    Colors.red.shade300,
+    Colors.pink.shade300,
+    Colors.orange.shade300,
+    Colors.yellow.shade300,
+    Colors.green.shade300,
+    Colors.blue.shade300,
+    Colors.grey.shade300,
+    Colors.amber.shade300,
+    Colors.cyan.shade300
   ];
 
   static TextStyle mainTile =

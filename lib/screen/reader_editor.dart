@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_notes/screen/home_screen.dart';
 import 'package:fire_notes/style/app_style.dart';
 import 'package:flutter/material.dart';
+import 'package:like_button/like_button.dart';
 
 class ReaderEditorScreen extends StatefulWidget {
   const ReaderEditorScreen(this.doc, {Key? key}) : super(key: key);
@@ -18,6 +19,8 @@ class _ReaderEditorScreenState extends State<ReaderEditorScreen> {
   final TextEditingController tileController = TextEditingController();
   final TextEditingController contentController = TextEditingController();
 
+  bool isFav = false;
+
   @override
   Widget build(BuildContext context) {
     int colorId = widget.doc['color_id'];
@@ -31,6 +34,16 @@ class _ReaderEditorScreenState extends State<ReaderEditorScreen> {
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
+        actions: [
+          LikeButton(
+            size: 30,
+            onTap: (value) async {
+              isFav = !isFav;
+
+              return isFav;
+            },
+          )
+        ],
         title: Text(
           widget.doc["note_tile"],
           style: const TextStyle(color: Colors.black),
@@ -99,6 +112,7 @@ class _ReaderEditorScreenState extends State<ReaderEditorScreen> {
                 .collection("Notes")
                 .doc(widget.doc["id"])
                 .update({
+              "favorite": isFav,
               "color_id": widget.doc["color_id"],
               "creation_date": dates,
               "note_content": contentController.text,
