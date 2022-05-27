@@ -119,8 +119,10 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
               .collection("Notes")
               .doc(widget.doc.id)
               .delete();
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => TabBarHomeScreen()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const TabBarHomeScreen()));
         }),
         child: const Icon(Icons.delete),
       ),
