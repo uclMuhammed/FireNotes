@@ -75,6 +75,9 @@ class _NoteListScreenState extends State<NoteListScreen> {
                                                 if (val!.isEmpty) {
                                                   return 'Please enter some password';
                                                 }
+                                                if (val.length < 6) {
+                                                  return 'Your password must be 6 characters';
+                                                }
                                                 if (note.get("password") !=
                                                     passController.text) {
                                                   return 'Wrong Password';

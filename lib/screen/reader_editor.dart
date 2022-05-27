@@ -18,6 +18,7 @@ class _ReaderEditorScreenState extends State<ReaderEditorScreen> {
   get dates => daet.replaceRange(16, null, "");
   final TextEditingController tileController = TextEditingController();
   final TextEditingController contentController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   bool isFav = false;
 
@@ -27,6 +28,7 @@ class _ReaderEditorScreenState extends State<ReaderEditorScreen> {
 
     tileController.text = widget.doc["note_tile"];
     contentController.text = widget.doc["note_content"];
+    passwordController.text = widget.doc["password"];
 
     return Scaffold(
       backgroundColor: AppStyle.cardColors[colorId],
@@ -56,6 +58,13 @@ class _ReaderEditorScreenState extends State<ReaderEditorScreen> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
+                Text(
+                  dates,
+                  style: AppStyle.dateTile,
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
                 TextFormField(
                   controller: tileController,
                   maxLength: 100,
@@ -72,9 +81,23 @@ class _ReaderEditorScreenState extends State<ReaderEditorScreen> {
                 const SizedBox(
                   height: 24,
                 ),
-                Text(
-                  dates,
-                  style: AppStyle.dateTile,
+                TextFormField(
+                  keyboardType: TextInputType.name,
+                  controller: passwordController,
+                  obscureText: true,
+                  maxLength: 16,
+                  decoration:
+                      textFormFieldDecoration(colorId, "", "Note Password"),
+                  style: AppStyle.mainContetnt,
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return null;
+                    }
+                    if (val!.isNotEmpty && val.length < 6) {
+                      return 'Your password must be 6 characters.';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(
                   height: 24,
@@ -107,24 +130,25 @@ class _ReaderEditorScreenState extends State<ReaderEditorScreen> {
                 content: Text("Progressing Data"),
               ),
             );
-          }
-          if (contentController.text.isNotEmpty &&
-              tileController.text.isNotEmpty) {
-            FirebaseFirestore.instance
-                .collection("Notes")
-                .doc(widget.doc["id"])
-                .update({
-              "favorite": isFav,
-              "color_id": widget.doc["color_id"],
-              "creation_date": dates,
-              "note_content": contentController.text,
-              "note_tile": tileController.text,
-              "ischecking": false,
-            });
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const TabBarHomeScreen()));
+            if (contentController.text.isNotEmpty &&
+                tileController.text.isNotEmpty) {
+              FirebaseFirestore.instance
+                  .collection("Notes")
+                  .doc(widget.doc["id"])
+                  .update({
+                "favorite": isFav,
+                "color_id": widget.doc["color_id"],
+                "creation_date": dates,
+                "password": passwordController.text,
+                "note_content": contentController.text,
+                "note_tile": tileController.text,
+                "ischecking": false,
+              });
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const TabBarHomeScreen()));
+            }
           }
         },
         child: const Icon(Icons.save),

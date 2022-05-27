@@ -89,7 +89,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
                   height: 24,
                 ),
                 TextFormField(
-                  keyboardType: TextInputType.visiblePassword,
+                  keyboardType: TextInputType.name,
                   controller: passwordController,
                   obscureText: true,
                   maxLength: 16,
@@ -98,8 +98,9 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
                   style: AppStyle.mainContetnt,
                   validator: (val) {
                     if (val!.isNotEmpty && val.length < 6) {
-                      return 'Password too short';
+                      return 'Your password must be 6 characters';
                     }
+                    return null;
                   },
                 ),
                 const SizedBox(
