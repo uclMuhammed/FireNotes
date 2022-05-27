@@ -1,4 +1,5 @@
 import 'package:fire_notes/screen/fav_notes_list.dart';
+import 'package:fire_notes/screen/note_editor.dart';
 import 'package:fire_notes/screen/note_list_screen.dart';
 import 'package:fire_notes/screen/note_lock_screen.dart';
 import 'package:fire_notes/style/app_style.dart';
@@ -60,11 +61,24 @@ class _TabBarHomeScreenState extends State<TabBarHomeScreen>
             ],
           ),
         ),
-        body: TabBarView(controller: controller, children: const [
-          NoteListScreen(),
-          FavNotesList(),
-          LockedNotesList(),
-        ]),
+        body: TabBarView(
+          controller: controller,
+          children: const [
+            NoteListScreen(),
+            FavNotesList(),
+            LockedNotesList(),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const NoteEditorScreen()));
+          },
+          label: const Text("Add Note"),
+          icon: const Icon(Icons.add),
+        ),
       ),
     );
   }
