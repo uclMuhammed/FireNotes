@@ -8,6 +8,7 @@ class Note extends ChangeNotifier {
   String? note_tile;
   String? creation_date;
   String? note_content;
+  String? password;
   int? color_id;
   bool? favorite;
 
@@ -17,12 +18,14 @@ class Note extends ChangeNotifier {
       this.creation_date,
       this.note_content,
       this.note_tile,
+      this.password,
       this.id,
       this.favorite});
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "note_tile": note_tile,
+        "password": password,
         "creation_date": creation_date,
         "note_content": note_content,
         "color_id": color_id,

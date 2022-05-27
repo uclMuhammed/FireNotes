@@ -15,6 +15,8 @@ class NoteListScreen extends StatefulWidget {
 
 class _NoteListScreenState extends State<NoteListScreen> {
   TextEditingController searchController = TextEditingController();
+  TextEditingController passController = TextEditingController();
+  final key = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +48,95 @@ class _NoteListScreenState extends State<NoteListScreen> {
                       children: myList
                           .map(
                             (note) => noteCard(() {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => NoteReaderScreen(note),
-                                ),
-                              );
+                              OutlineInputBorder textFormFieldBorderStyle(
+                                  Color colorId) {
+                                return OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                  borderSide: BorderSide(color: colorId),
+                                );
+                              }
+
+                              if (note.get("password").toString().isNotEmpty) {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: const Text("Password"),
+                                        actions: [
+                                          Form(
+                                            key: key,
+                                            child: TextFormField(
+                                              controller: passController,
+                                              obscureText: true,
+                                              maxLength: 16,
+                                              validator: (val) {
+                                                if (val!.isEmpty) {
+                                                  return 'Please enter some password';
+                                                }
+                                                if (note.get("password") !=
+                                                    passController.text) {
+                                                  return 'Wrong Password';
+                                                }
+                                                return null;
+                                              },
+                                              decoration: InputDecoration(
+                                                hintText: "",
+                                                labelText: "Password",
+                                                fillColor: AppStyle.bgColor,
+                                                filled: true,
+                                                enabledBorder:
+                                                    textFormFieldBorderStyle(
+                                                        Colors.white70),
+                                                disabledBorder:
+                                                    textFormFieldBorderStyle(
+                                                        Colors.white70),
+                                                border:
+                                                    textFormFieldBorderStyle(
+                                                        Colors.white70),
+                                                focusedBorder:
+                                                    textFormFieldBorderStyle(
+                                                        Colors.white70),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          TextButton(
+                                              onPressed: () {
+                                                if (key.currentState!
+                                                    .validate()) {
+                                                  if (passController.text ==
+                                                      note.get("password")) {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            NoteReaderScreen(
+                                                                note),
+                                                      ),
+                                                    );
+                                                  }
+                                                }
+                                              },
+                                              child: const Text(
+                                                "Confirm",
+                                                style: TextStyle(fontSize: 16),
+                                              ))
+                                        ],
+                                      );
+                                    });
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        NoteReaderScreen(note),
+                                  ),
+                                );
+                              }
                             }, note),
                           )
                           .toList(),

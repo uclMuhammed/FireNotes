@@ -16,8 +16,9 @@ class NoteEditorScreen extends StatefulWidget {
 class _NoteEditorScreenState extends State<NoteEditorScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _tileController = TextEditingController();
-  final TextEditingController _contentController = TextEditingController();
+  final TextEditingController tileController = TextEditingController();
+  final TextEditingController contentController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   bool favorite = false;
 
@@ -65,7 +66,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
               children: [
                 TextFormField(
                   keyboardType: TextInputType.name,
-                  controller: _tileController,
+                  controller: tileController,
                   maxLength: 100,
                   decoration:
                       textFormFieldDecoration(colorId, "", "Note Title"),
@@ -88,7 +89,24 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
                   height: 24,
                 ),
                 TextFormField(
-                  controller: _contentController,
+                  keyboardType: TextInputType.visiblePassword,
+                  controller: passwordController,
+                  obscureText: true,
+                  maxLength: 16,
+                  decoration:
+                      textFormFieldDecoration(colorId, "", "Note Password"),
+                  style: AppStyle.mainContetnt,
+                  validator: (val) {
+                    if (val!.isNotEmpty && val.length < 6) {
+                      return 'Password too short';
+                    }
+                  },
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                TextFormField(
+                  controller: contentController,
                   keyboardType: TextInputType.multiline,
                   maxLength: 5000,
                   decoration:
@@ -118,8 +136,9 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
             );
             final note = Note(
                 ischecking: false,
-                note_tile: _tileController.text,
-                note_content: _contentController.text,
+                note_tile: tileController.text,
+                note_content: contentController.text,
+                password: passwordController.text,
                 color_id: colorId,
                 creation_date: dates.toString(),
                 favorite: favorite);
@@ -140,6 +159,15 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
     await docNote.set(json);
   }
 
+  OutlineInputBorder textFormFieldBorderStyle(int colorId) {
+    return OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(20),
+      ),
+      borderSide: BorderSide(color: AppStyle.contentColors[colorId]),
+    );
+  }
+
   InputDecoration textFormFieldDecoration(
       int colorId, String hint, String label) {
     return InputDecoration(
@@ -151,15 +179,6 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
       disabledBorder: textFormFieldBorderStyle(colorId),
       border: textFormFieldBorderStyle(colorId),
       focusedBorder: textFormFieldBorderStyle(colorId),
-    );
-  }
-
-  OutlineInputBorder textFormFieldBorderStyle(int colorId) {
-    return const OutlineInputBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(20),
-      ),
-      // borderSide: BorderSide(color: AppStyle.contentColors[colorId]),
     );
   }
 }

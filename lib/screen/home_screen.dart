@@ -43,7 +43,7 @@ class _TabBarHomeScreenState extends State<TabBarHomeScreen>
           backgroundColor: AppStyle.mainColor,
           title: const Text("Fire Notes"),
           centerTitle: true,
-          actions: [
+          actions: const [
             AllSelectedDeleteButton(),
           ],
           bottom: TabBar(
