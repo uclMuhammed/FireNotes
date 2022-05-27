@@ -93,7 +93,7 @@ class _ReaderEditorScreenState extends State<ReaderEditorScreen> {
                     if (val!.isEmpty) {
                       return null;
                     }
-                    if (val!.isNotEmpty && val.length < 6) {
+                    if (val.isNotEmpty && val.length < 6) {
                       return 'Your password must be 6 characters.';
                     }
                     return null;
