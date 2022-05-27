@@ -37,13 +37,15 @@ class AllSelectedDeleteButton extends StatelessWidget {
           noteList.add(data);
         }
         for (var i = 0; i < noteList.length; i++) {
-          if (noteList[i]["ischecking"] == false) {
+          if (noteList[i]["ischecking"] == false &&
+              noteList[i]["password"].toString().isEmpty) {
             FirebaseFirestore.instance
                 .collection("Notes")
                 .doc(noteList[i]["id"])
                 .update({"ischecking": true});
           }
-          if (noteList[i]["ischecking"] == true) {
+          if (noteList[i]["ischecking"] == true &&
+              noteList[i]["password"].toString().isEmpty) {
             FirebaseFirestore.instance
                 .collection("Notes")
                 .doc(noteList[i]["id"])

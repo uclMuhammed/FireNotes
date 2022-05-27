@@ -3,7 +3,6 @@ import 'package:fire_notes/screen/note_reader.dart';
 import 'package:fire_notes/style/app_style.dart';
 import 'package:fire_notes/widgets/note_card.dart';
 import 'package:flutter/material.dart';
-
 import 'note_editor.dart';
 
 class NoteListScreen extends StatefulWidget {

@@ -145,7 +145,10 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
                 favorite: favorite);
             createNote(note);
 
-            Navigator.pop(context);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const TabBarHomeScreen()));
           }
         }),
         child: const Icon(Icons.save),

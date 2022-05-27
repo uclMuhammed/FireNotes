@@ -1,12 +1,8 @@
-import 'package:fire_notes/screen/alarm_notes.dart';
 import 'package:fire_notes/screen/fav_notes_list.dart';
-
 import 'package:fire_notes/screen/note_list_screen.dart';
-
+import 'package:fire_notes/screen/note_lock_screen.dart';
 import 'package:fire_notes/style/app_style.dart';
-
 import 'package:flutter/material.dart';
-
 import '../widgets/all_selected_delete_button.dart';
 
 class TabBarHomeScreen extends StatefulWidget {
@@ -58,8 +54,8 @@ class _TabBarHomeScreenState extends State<TabBarHomeScreen>
                 icon: Icon(Icons.favorite),
               ),
               Tab(
-                text: "Alarm Notes",
-                icon: Icon(Icons.alarm),
+                text: "Locked Notes",
+                icon: Icon(Icons.lock),
               ),
             ],
           ),
@@ -67,7 +63,7 @@ class _TabBarHomeScreenState extends State<TabBarHomeScreen>
         body: TabBarView(controller: controller, children: const [
           NoteListScreen(),
           FavNotesList(),
-          AlarmNotes(),
+          LockedNotesList(),
         ]),
       ),
     );

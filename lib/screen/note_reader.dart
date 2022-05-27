@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fire_notes/screen/home_screen.dart';
 import 'package:fire_notes/screen/reader_editor.dart';
 import 'package:fire_notes/style/app_style.dart';
 import 'package:flutter/material.dart';
@@ -118,7 +119,8 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
               .collection("Notes")
               .doc(widget.doc.id)
               .delete();
-          Navigator.pop(context);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => TabBarHomeScreen()));
         }),
         child: const Icon(Icons.delete),
       ),

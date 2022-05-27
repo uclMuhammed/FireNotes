@@ -5,14 +5,14 @@ import 'package:fire_notes/style/app_style.dart';
 import 'package:fire_notes/widgets/note_card.dart';
 import 'package:flutter/material.dart';
 
-class FavNotesList extends StatefulWidget {
-  const FavNotesList({Key? key}) : super(key: key);
+class LockedNotesList extends StatefulWidget {
+  const LockedNotesList({Key? key}) : super(key: key);
 
   @override
-  State<FavNotesList> createState() => _FavNotesListState();
+  State<LockedNotesList> createState() => _LockedNotesListState();
 }
 
-class _FavNotesListState extends State<FavNotesList> {
+class _LockedNotesListState extends State<LockedNotesList> {
   TextEditingController passController = TextEditingController();
   final key = GlobalKey<FormState>();
   @override
@@ -38,15 +38,15 @@ class _FavNotesListState extends State<FavNotesList> {
                     );
                   }
                   if (snapshots.hasData) {
-                    var favList = [];
-                    for (var fav in snapshots.data!.docs.toList().reversed) {
-                      if (fav["favorite"] == true) {
-                        favList.add(fav);
+                    var lockList = [];
+                    for (var lock in snapshots.data!.docs.toList().reversed) {
+                      if (lock["password"].isNotEmpty) {
+                        lockList.add(lock);
                       }
                     }
                     return GridView.count(
                       crossAxisCount: 2,
-                      children: favList
+                      children: lockList
                           .map(
                             (note) => noteCard(() {
                               OutlineInputBorder textFormFieldBorderStyle(
