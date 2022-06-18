@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "7810766414",
-    "project_id": "firenotes-73a5c",
-    "storage_bucket": "firenotes-73a5c.appspot.com"
+    "project_number": "11083898264",
+    "project_id": "threep-1c9e4",
+    "storage_bucket": "threep-1c9e4.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:7810766414:android:56efa3818d803cb608d51f",
+        "mobilesdk_app_id": "1:11083898264:android:ac6ea22d7a5e4acceadfed",
         "android_client_info": {
           "package_name": "com.example.fire_notes"
         }
       },
       "oauth_client": [
         {
-          "client_id": "7810766414-2rq952ruo91h0526695vdqfeqhd5bri5.apps.googleusercontent.com",
+          "client_id": "11083898264-fucs25hu3dcj2338tvmpltnult390bnm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA5Kt2bXbu9WLQteilGkbQBAI9Jwqu2wbc"
+          "current_key": "AIzaSyDI9NTAcdgpHwvM7XGA6Lr27tQTV0HWWtg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "7810766414-2rq952ruo91h0526695vdqfeqhd5bri5.apps.googleusercontent.com",
+              "client_id": "11083898264-fucs25hu3dcj2338tvmpltnult390bnm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

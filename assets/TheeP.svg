@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="61.707" height="56.892" viewBox="0 0 61.707 56.892">
+  <g id="Group_6" data-name="Group 6" transform="translate(-19.147 -21.554)">
+    <g id="Group_5" data-name="Group 5" transform="translate(-6.993 -0.946)">
+      <g id="Group_2" data-name="Group 2" transform="translate(-772.19 249.352) rotate(-30)">
+        <path id="Path_1" data-name="Path 1" d="M8.611,0a8.611,8.611,0,0,1,8.611,8.611H0A8.611,8.611,0,0,1,8.611,0Z" transform="translate(785 237)" fill="#fff"/>
+        <path id="Rectangle_2" data-name="Rectangle 2" d="M0,0H31a0,0,0,0,1,0,0V4a0,0,0,0,1,0,0H2A2,2,0,0,1,0,2V0A0,0,0,0,1,0,0Z" transform="translate(785 245)" fill="#fff"/>
+      </g>
+      <g id="Group_3" data-name="Group 3" transform="translate(61 53.5) rotate(30)">
+        <path id="Path_1-2" data-name="Path 1" d="M8.611,8.611A8.611,8.611,0,0,1,0,0H17.222A8.611,8.611,0,0,1,8.611,8.611Z" transform="translate(13.778 3.389)" fill="#fff"/>
+        <path id="Rectangle_2-2" data-name="Rectangle 2" d="M0,0H29a2,2,0,0,1,2,2V4a0,0,0,0,1,0,0H0A0,0,0,0,1,0,4V0A0,0,0,0,1,0,0Z" fill="#fff"/>
+      </g>
+      <g id="Group_4" data-name="Group 4" transform="translate(5 1.908)">
+        <path id="Rectangle_2-3" data-name="Rectangle 2" d="M0,0H31a0,0,0,0,1,0,0V4a0,0,0,0,1,0,0H2A2,2,0,0,1,0,2V0A0,0,0,0,1,0,0Z" transform="translate(56 20.592) rotate(90)" fill="#fff"/>
+        <g id="Path_1-3" data-name="Path 1" transform="translate(63.98 20.592) rotate(90)" fill="none">
+          <path d="M8.611,0a8.611,8.611,0,0,1,8.611,8.611H0A8.611,8.611,0,0,1,8.611,0Z" stroke="none"/>
+          <path d="M 8.611110687255859 -4.76837158203125e-06 C 13.3668909072876 -4.76837158203125e-06 17.22222137451172 3.855325222015381 17.22222137451172 8.611115455627441 L 0 8.611115455627441 C 0 3.855325222015381 3.855320930480957 -4.76837158203125e-06 8.611110687255859 -4.76837158203125e-06 Z" stroke="none" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+    <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(47 49)" fill="#2f60b4" stroke="#fff" stroke-width="2.5">
+      <circle cx="5" cy="5" r="5" stroke="none"/>
+      <circle cx="5" cy="5" r="3.75" fill="none"/>
+    </g>
+  </g>
+</svg>

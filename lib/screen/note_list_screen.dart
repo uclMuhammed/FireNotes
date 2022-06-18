@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_notes/screen/note_reader.dart';
 import 'package:fire_notes/style/app_style.dart';
 import 'package:fire_notes/widgets/note_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'note_editor.dart';
 
 class NoteListScreen extends StatefulWidget {
@@ -17,6 +19,8 @@ class _NoteListScreenState extends State<NoteListScreen> {
   TextEditingController passController = TextEditingController();
   final key = GlobalKey<FormState>();
 
+  final user = FirebaseAuth.instance.currentUser!;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +32,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream:
-                  FirebaseFirestore.instance.collection("Notes").snapshots(),
+                  FirebaseFirestore.instance.collection(user.uid).snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshots) {
                 if (snapshots.connectionState == ConnectionState.waiting) {
                   return const Center(

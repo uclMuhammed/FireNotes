@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_notes/constructer/constructer.dart';
 import 'package:fire_notes/style/app_style.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 
@@ -21,6 +22,8 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
   final TextEditingController tileController = TextEditingController();
   final TextEditingController contentController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  final user = FirebaseAuth.instance.currentUser!;
 
   bool favorite = false;
 
@@ -159,7 +162,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
   }
 
   Future createNote(Note note) async {
-    final docNote = FirebaseFirestore.instance.collection("Notes").doc(daet);
+    final docNote = FirebaseFirestore.instance.collection(user.uid).doc(daet);
     note.id = daet;
     final json = note.toJson();
     await docNote.set(json);
